@@ -62,7 +62,7 @@ cd project_process_mining
 ```
 2. Create a virtual environment:
 ```bash
-python3.11 -m venv venv
+py -3.11 -m venv venv
 source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
 ```
