@@ -1,0 +1,62 @@
+===========================================================
+USER GUIDE: ED Triage Intelligence & Flow Optimization Tool
+===========================================================
+
+1. OVERVIEW
+-----------
+This application is a decision-support tool for ED Triage Leads. 
+It uses Process Mining to map patient flow, Machine Learning to 
+predict admissions, and Monte Carlo simulations to model 
+efficiency gains.
+
+2. INSTALLATION (Technical Setup)
+---------------------------------
+To run this app, you must have Python 3.9 or higher installed.
+
+Step A: Create a virtual environment (Recommended)
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+Step B: Install Dependencies
+   Run the following command to install all required libraries:
+   pip install -r requirements.txt
+
+3. RUNNING THE APPLICATION
+--------------------------
+1. Open your terminal or command prompt.
+2. Navigate to the folder containing 'app.py'.
+3. Execute the following command:
+   streamlit run app.py
+4. Your default web browser will open a new tab with the dashboard.
+
+4. DATA REQUIREMENTS
+--------------------
+The app requires a CSV file with the following column headers:
+- patient_id: Unique identifier for each patient.
+- timestamp: The date/time of the event (YYYY-MM-DD HH:MM:SS).
+- event: The clinical step (e.g., Triage, Registration, Assessment).
+- triage_code: Numerical urgency level (1-5).
+- initial_zone: The area of the ED (e.g., Zone A, Fast Track).
+- disposition_desc: Outcome (must contain 'Admit' for ML features).
+
+5. HOW TO USE THE DASHBOARD
+---------------------------
+- STEP 1 (Upload): Use the sidebar to upload your Event Log CSV.
+- STEP 2 (Filter): Select specific Triage Levels in the sidebar 
+  to isolate high-acuity patient data.
+- STEP 3 (Analyze Flow): Hover over the Process Map (Section 1) 
+  to see volumes. Check Section 2 for safety protocol breaches.
+- STEP 4 (Load Balance): In Section 3, view the Heatmap to 
+  ensure 'Immediate' patients are not stuck in 'High Wait' zones.
+- STEP 5 (Simulate): Use the slider in Section 5 to see how 
+  reducing delays by a specific % would change your total ED stay.
+- STEP 6 (Intervene): Use Section 6 to pick specific 'Red Flag' 
+  patients for immediate clinical review.
+
+6. TROUBLESHOOTING
+------------------
+- "IndexError": Ensure your triage levels follow the "Number - Name" 
+  format or use the automated mapping built into the app.
+- "Blank Screen": Check the terminal for errors; ensure your 
+  CSV columns match the requirements in Section 4.
+===========================================================
