@@ -58,7 +58,8 @@ See `requirements.txt` for full dependency list.
 1. Clone the repository:
 ```bash
 git clone https://github.com/HzyBetty/project_process_mining.git
-cd project_process_mining ```
+cd project_process_mining
+```
 2. Create a virtual environment:
 ```bash
 python -m venv venv
