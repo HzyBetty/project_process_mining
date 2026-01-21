@@ -16,32 +16,35 @@ Unlike traditional analytics that may be skewed by repeat visitors or system err
 ## 🎯 Key Features
 
 ### 1. Dynamic Flow Discovery & Volume Slicing
-* **Directly-Follows Graph (DFG):** Visualizes the clinical journey with **variable line thickness** mapped to patient volume.
-* **Interactive Volume Slicer:** Allows users to filter out rare deviations to focus on the "Happy Path" or high-traffic bottlenecks.
+* **Directly-Follows Graph (DFG):** Visualizes the clinical journey with **dynamic line scaling** mapped to real-time patient volume. 
+* **Spatial Logic:** Uses force-directed mapping where node proximity represents the statistical frequency of transitions, making the "Main Highway" of the ED immediately visible.
+* **Interactive Volume Slicer:** Allows leads to filter out rare deviations to focus on high-traffic systemic bottlenecks.
 
 
-### 2. Temporal Efficiency Heatmap
-* **Hourly Delay Analysis:** A 24-hour heatmap identifying peak congestion windows for specific process handoffs.
-* **Business Impact:** Provides a data-driven basis for "surge staffing" and precision resource allocation during identified "Red Zones."
+
+### 2. Protocol Conformance & "The Golden Rule"
+* **Robust Subsequence Logic:** Monitors compliance against the clinical gold standard: **Triage → Registration → Assessment → Discharge**.
+* **Noise-Resistant Validation:** The algorithm validates chronological milestones even when intermediate clinical steps (labs, vitals, imaging) occur, ensuring accurate reporting without failing visits due to "messy" real-world data.
 
 
-### 3. Protocol Conformance & "The Golden Rule"
-* **Sequence Tracking:** Monitors compliance against the clinical gold standard: **Triage → Registration → Assessment → Discharge**.
-* **Relative Order Logic:** Features a flexible algorithm that validates the chronological order of milestones, identifying safety risks or documentation gaps without failing visits for "parallel processing" (e.g., bedside registration).
+
+### 3. Physical Zone Load Distribution
+* **Resource Mapping:** Visualizes real-time patient distribution across physical ED sectors (e.g., Fast Track, Acute Care, Main Triage).
+* **Operational Balancing:** Identifies physical overcrowding, providing a data-driven basis for the immediate redistribution of nursing staff between zones.
+
+### 4. 6-Factor Predictive Admission Analytics
+* **Random Forest Engine:** An advanced AI model analyzing six distinct variables: **Age, Triage Level, Arrival Hour, Gender, Assigned Zone, and Step Complexity**.
+* **Inpatient Forecasting:** Identifies the primary drivers influencing admission probability to help inpatient wards prepare for bed demand 4–6 hours in advance.
+
+### 5. Comparative Monte Carlo Simulation
+* **Dual-Distribution Forecasting:** Uses **Stochastic Logic** to overlay current **Baseline** performance against an **Improved** target state across 1,000 simulated visits.
+* **Impact Analysis:** Projects how efficiency gains shift the LOS bell curve and explicitly calculates the reduction in "Tail Risk" (dangerously long stays exceeding 8 hours).
 
 
-### 4. Predictive Admission Analytics
-* **Random Forest Engine:** Predicts the probability of hospital admission based on initial triage metrics.
-* **Resource Forecasting:** Identifies key drivers influencing admissions to help inpatient wards prepare for incoming surges.
 
-### 5. Monte Carlo Capacity Simulation
-* **Stochastic Forecasting:** Uses **Monte Carlo Logic** to run 1,000 simulated visits based on the actual historical distribution (Mean and Standard Deviation) of the ED's Length of Stay (LOS).
-* **What-If Analysis:** Features an improvement slider to project how efficiency gains shift the LOS bell curve and reduce "Tail Risk" (dangerously long stays).
-
-
-### 6. Red Flag Alerts
-* **Anomaly Detection:** Automatically flags "Statistical Outliers" (delays exceeding Mean + 2SD).
-* **Root Cause Deep-Dive:** Allows Triage Leads to inspect the specific timeline of delayed visits for operational auditing.
+### 6. Temporal Efficiency & Red Flag Alerts
+* **Hourly Delay Heatmap:** A 24-hour heatmap identifying peak congestion windows for specific process handoffs, allowing for surgical precision in swing-shift staffing.
+* **Statistical Anomaly Detection:** Automatically flags visits exceeding **Mean + 2 Standard Deviations**, providing a direct clinical audit trail for Root Cause Analysis (RCA).
 
 ---
 
