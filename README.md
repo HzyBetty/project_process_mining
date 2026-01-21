@@ -1,112 +1,110 @@
-# ED Triage Lead Decision Support Tool
+# 🏥 ED Triage Lead Decision Support Tool
 
-**Project Overview**  
-This repository contains the ED Triage Lead Decision Support Tool, an AI-assisted process mining and predictive analytics application designed for Emergency Department (ED) operations. The tool transforms raw event logs into actionable, real-time insights, helping triage leads optimize patient flow, identify bottlenecks, monitor protocol compliance, and simulate the impact of staffing or process changes on patient length of stay (LOS).
+**Project Overview** This repository contains the **ED Triage Lead Decision Support Tool**, an AI-assisted process mining and predictive analytics application designed specifically for Emergency Department (ED) operations. The tool transforms raw, noisy event logs into actionable, real-time insights—empowering Triage Leads to optimize patient flow, monitor safety protocols, and simulate operational changes.
 
-The tool was developed as part of a Master of Management Analytics (MMA) program project and integrates Python, Streamlit, Plotly, machine learning, and network analysis to support decision-making in high-pressure clinical environments.
+Developed as part of a **Master of Management Analytics (MMA)** program, this tool integrates Python, Streamlit, and advanced network analysis to solve the "Black Box" of ED throughput.
+
+---
+
+## 🧠 Core Methodology: Visit-Atomic Isolation
+Unlike traditional analytics that may be skewed by repeat visitors or system errors, this tool features a custom **Isolation Engine**:
+* **The 24-Hour Rule:** Automatically partitions patient data into distinct clinical encounters if a gap of 24+ hours is detected.
+* **Start-Event Enforcement:** Forces a new "Visit ID" upon arrival events (e.g., Ambulance Arrival, Triage), eliminating "ghost transitions" (e.g., linking a discharge from last month to a triage from today) and ensuring bottleneck calculations are accurate to the minute.
 
 ---
 
 ## 🎯 Key Features
 
-1. **Flow Discovery & Load Balancing**
-   - Interactive Directly-Follows Graph (DFG) visualizing patient pathways.
-   - Identification of top bottlenecks and high-volume transitions.
-   - Zone heatmaps to highlight patient accumulation and resource strain.
+### 1. Dynamic Flow Discovery & Volume Slicing
+* **Directly-Follows Graph (DFG):** Visualizes the clinical journey with **variable line thickness** mapped to patient volume.
+* **Interactive Volume Slicer:** Allows users to filter out rare deviations to focus on the "Happy Path" or high-traffic bottlenecks.
 
-2. **Safety & Protocol Conformance**
-   - Tracks compliance against the clinical gold standard protocol: Triage → Registration → Assessment → Discharge.
-   - Flags sequence violations or missing steps that could indicate safety risks.
 
-3. **Predictive Analytics**
-   - Machine learning model predicts the probability of hospital admission.
-   - Identifies key drivers (e.g., age, triage level, arrival time) influencing admissions.
+### 2. Temporal Efficiency Heatmap
+* **Hourly Delay Analysis:** A 24-hour heatmap identifying peak congestion windows for specific process handoffs.
+* **Business Impact:** Provides a data-driven basis for "surge staffing" and precision resource allocation during identified "Red Zones."
 
-4. **Capacity Simulation & “What-If” Planning**
-   - Monte Carlo simulations project LOS under hypothetical efficiency improvements.
-   - Supports proactive resource allocation and operational planning.
 
-5. **Red Flag Alerts**
-   - Highlights patients experiencing unusually long waits.
-   - Allows deep-dive analysis for individual patient flow and delays.
+### 3. Protocol Conformance & "The Golden Rule"
+* **Sequence Tracking:** Monitors compliance against the clinical gold standard: **Triage → Registration → Assessment → Discharge**.
+* **Relative Order Logic:** Features a flexible algorithm that validates the chronological order of milestones, identifying safety risks or documentation gaps without failing visits for "parallel processing" (e.g., bedside registration).
+
+
+### 4. Predictive Admission Analytics
+* **Random Forest Engine:** Predicts the probability of hospital admission based on initial triage metrics.
+* **Resource Forecasting:** Identifies key drivers influencing admissions to help inpatient wards prepare for incoming surges.
+
+### 5. Monte Carlo Capacity Simulation
+* **Stochastic Forecasting:** Uses **Monte Carlo Logic** to run 1,000 simulated visits based on the actual historical distribution (Mean and Standard Deviation) of the ED's Length of Stay (LOS).
+* **What-If Analysis:** Features an improvement slider to project how efficiency gains shift the LOS bell curve and reduce "Tail Risk" (dangerously long stays).
+
+
+### 6. Red Flag Alerts
+* **Anomaly Detection:** Automatically flags "Statistical Outliers" (delays exceeding Mean + 2SD).
+* **Root Cause Deep-Dive:** Allows Triage Leads to inspect the specific timeline of delayed visits for operational auditing.
 
 ---
 
 ## 🧑‍💻 Target User Persona
 
-**Triage Lead** – responsible for managing patient inflow, prioritizing assessments, and preventing overcrowding.  
-- Non-technical and time-constrained.  
-- Needs actionable insights and visual dashboards rather than raw data.  
-- Uses the tool for real-time decision-making and operational planning.
+**Triage Lead** – Responsible for managing patient inflow and preventing overcrowding.  
+* **Need:** Actionable insights that translate "Data Science" into "Bed Management."
+* **Goal:** Minimize "Left Without Being Seen" (LWBS) rates and optimize clinical throughput.
 
 ---
 
 ## ⚙️ Technical Requirements
 
-- **Python Version:** 3.9+
-- **Framework:** Streamlit
-- **Key Libraries:** pandas, numpy, plotly, scikit-learn, networkx
-- **Data:** `.csv` file containing the following columns:
-  - `patient_id`, `timestamp`, `event`, `triage_code`, `initial_zone`, `disposition_desc`
-
-See `requirements.txt` for full dependency list.  
+* **Python Version:** 3.9+
+* **Framework:** Streamlit
+* **Key Libraries:** `pandas`, `numpy`, `plotly`, `scikit-learn`, `networkx`, `scipy`
+* **Data Structure:** `.csv` file with columns: `patient_id`, `timestamp`, `event`, `triage_code`, `initial_zone`, `disposition_desc`, `age`, `gender`.
 
 ---
 
 ## 🚀 Installation & Usage
 
-1. Clone the repository:
-```bash
-git clone https://github.com/HzyBetty/project_process_mining.git
-cd project_process_mining
-```
-2. Create a virtual environment:
-```bash
-py -3.11 -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-```
-3. Install dependencies:
-```bash   
-pip install -r requirements.txt
-```
-4. Lauch the app
-```bash 
-streamlit run app.py
-```
-5. Upload your ED event log CSV via the sidebar to activate the dashboard.
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/HzyBetty/project_process_mining.git](https://github.com/HzyBetty/project_process_mining.git)
+   cd project_process_mining
+   ```
+2. **Create a virtual environment:**
+   ```bash
+   py -3.11 -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   venv\Scripts\activate     # Windows
+   ```
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Launch the App:**
+   ```bash
+   streamlit run app.py
+   ```
+5. **Upload Data:** Use the sidebar to upload an ED log CSV and utilize the Volume Slicer to adjust the Flow Map.
 
-## Dashboard Overview
+---
 
-- **Global Filters (Sidebar):** Select triage levels, upload data, and view urgency legend.  
-- **Flow Map:** Interactive visualization of patient transitions and bottlenecks.  
-- **Protocol Conformance:** Compliance rate and flagged deviations from the standard process.  
-- **Queue & Load Balancing:** Average wait time per zone and acuity-to-zone distribution.  
-- **Predictive Admission Analytics:** Feature importance and probability predictions.  
-- **Capacity Simulation:** "What-If" scenario slider showing potential LOS improvements.  
-- **Red Flag Alerts:** Patient-level investigation of extreme delays.  
+## 📊 Dashboard Functionality: Six-Module Analysis
+
+The application is divided into six strategic modules that allow a Triage Lead to move from high-level oversight to granular patient-level investigation:
+
+1.  **Process Discovery & Flow Mapping:** Uses a Directly-Follows Graph (DFG) to visualize how patients move through the ED. Includes a **Volume Slicer** to identify the most common pathways versus rare deviations.
+2.  **Safety Protocol Conformance:** Compares actual patient journeys against the "Golden Rule" clinical sequence. It uses relative ordering to calculate a **Compliance Rate**, identifying where protocols are being bypassed.
+3.  **Real-Time Distribution:** Provides an immediate breakdown of patient volume across different hospital **Initial Zones**, helping leads identify which physical areas are currently over-capacity.
+4.  **Admission Predictive Analytics:** Employs a **Random Forest Machine Learning** model to predict the likelihood of hospital admission based on arrival data, enabling early bed-request notifications.
+5.  **Monte Carlo Capacity Simulation:** A "What-If" tool that uses stochastic modeling to project how process improvements (e.g., 10% faster triage) would shift the overall **Length of Stay (LOS)** distribution.
+6.  **Red Flag Alert System:** Automatically flags visits that are **Statistical Outliers** (Mean + 2SD). This allows for a deep-dive audit of individual cases that experienced extreme delays.
 
 ---
 
 ## 📁 Data Disclaimer
-
-Due to privacy and size constraints, the ED event log is **not included** in this repository.  
-You can test the application with your own anonymized ED event log formatted according to the technical requirements.
-
----
-
-## 📝 References
-
-- MMA Program, University of Toronto – Process Mining & Predictive Analytics coursework.  
-- Streamlit & Plotly documentation.  
-- Python libraries: pandas, numpy, scikit-learn, networkx.  
+Due to PHI (Protected Health Information) privacy constraints, the original event log is not included in this repository. Users may test the application using their own anonymized ED event log formatted according to the technical schema provided above.
 
 ---
 
 ## ✅ Notes
-
-- The application is designed for demonstration and portfolio purposes.  
-- For real hospital deployment, further validation, security measures, and integration with clinical IT systems are required.
-
-
-
+* **Purpose:** This tool is designed for demonstration and MMA portfolio purposes to showcase the intersection of process mining, data engineering, and clinical decision support.
+* **Business Impact:** By identifying even a modest 10% efficiency gain via the Monte Carlo simulation, an average ED could potentially reduce total patient "wait-hours" by hundreds of hours per week, directly impacting LWBS (Left Without Being Seen) rates and patient satisfaction.
